@@ -1,0 +1,992 @@
+---
+title: "Local Resilience Forum Report"
+author: ""
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    theme: simplex
+    social: menu
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+#### Do  Data pre processing stuff here ####
+# Install packages
+
+install.packages("flexdashboard")
+install.packages("OpenStreetMap")
+install.packages("sf")
+install.packages("ggplot2")
+
+# Need tmap2.3.0
+# install.packages("tmap")
+packageurl <- "https://cran.r-project.org/src/contrib/Archive/tmap/tmap_2.3.tar.gz"
+install.packages(packageurl, repos=NULL, type="source")
+
+install.packages("GISTools")
+install.packages("leaflet")
+install.packages("shiny")
+install.packages("datasets")
+install.packages("genalg")
+install.packages("scales")
+install.packages("tidyverse")
+install.packages("DT")
+
+library(flexdashboard)
+library(OpenStreetMap)
+library(sf)
+library(ggplot2)
+library(tmap)
+library(GISTools)
+library(leaflet)
+library(shiny)
+library(datasets)
+library(genalg)
+library(scales)
+library(tidyverse)
+library(DT)
+
+## Get the score data
+# MSOA level
+MSOAscores <- read.csv(paste(getwd(),"/data/FinalReportData/msoaScores_revised.csv",sep=""),na = "null")
+# LA level
+LAscores <- read.csv(paste(getwd(),"/data/FinalReportData/LAscores_revised.csv",sep=""),na = "null")
+# LRF level
+LRFscores <- read.csv(paste(getwd(),"/data/FinalReportData/LRFscores_revised.csv",sep=""),na = "null")
+# Region level
+Regionscores <- read.csv(paste(getwd(),"/data/FinalReportData/Regionscores_revised.csv",sep=""),na = "null")
+
+# Get the MSOA shape files:
+msoa_boundaries <- 
+  read_sf(paste(getwd(),"/data/shapefiles/MSOAboundaries/MSOA_simplified_boundaries.shp", sep = ""))
+
+# Join the regions on to the boundaries
+# Get the lookup
+RegionLookup <- read.csv(paste(getwd(),"/data/shapefiles/RegionLookup/Local_Authority_District_to_Region_December_2017_Lookup_in_England_.csv",sep=""),na = "null")
+
+# Join the score data on
+msoa_boundaries_scores <-
+  msoa_boundaries %>% 
+    left_join(MSOAscores[,c("msoa11cd","ladcd","ladnm","lrfcd","lrfnm","PopulationDensity_km2_score","Pct70_79_score","Pct80plus_score","EW_IMD_Decile_score","bph_score","RiskScore")], 
+              by = c("msoa11cd"="msoa11cd")) %>% 
+    rename(MSOA_PopulationDensity_km2_score = PopulationDensity_km2_score, 
+           MSOA_Pct70_79_score = Pct70_79_score,
+           MSOA_Pct80plus_score = Pct80plus_score,
+           MSOA_EW_IMD_Decile_score = EW_IMD_Decile_score, 
+           MSOA_bph_score = bph_score,
+           MSOA_RiskScore = RiskScore) %>% 
+    left_join(LAscores[,c("ladcd","PopulationDensity_km2_score","Pct70_79_score","Pct80plus_score","EW_IMD_Decile_score","bph_score","RiskScore")], 
+            by = c("ladcd"="ladcd")) %>% 
+     rename(LA_PopulationDensity_km2_score = PopulationDensity_km2_score, 
+           LA_Pct70_79_score = Pct70_79_score,
+           LA_Pct80plus_score = Pct80plus_score,
+           LA_EW_IMD_Decile_score = EW_IMD_Decile_score, 
+           LA_bph_score = bph_score,
+           LA_RiskScore = RiskScore) %>% 
+     left_join(LRFscores[,c("lrfcd","PopulationDensity_km2_score","Pct70_79_score","Pct80plus_score","EW_IMD_Decile_score","bph_score","RiskScore")], 
+            by = c("lrfcd"="lrfcd")) %>% 
+     rename(LRF_PopulationDensity_km2_score = PopulationDensity_km2_score, 
+           LRF_Pct70_79_score = Pct70_79_score,
+           LRF_Pct80plus_score = Pct80plus_score,
+           LRF_EW_IMD_Decile_score = EW_IMD_Decile_score, 
+           LRF_bph_score = bph_score,
+           LRF_RiskScore = RiskScore) %>% 
+    left_join(RegionLookup, by=c("ladcd"="ï..LAD17CD")) %>% 
+          mutate(RGN17NM = ifelse(str_detect(msoa11cd,"^W"),"Wales",as.character(RGN17NM))) %>% 
+    left_join(Regionscores[,c("RGN17NM","PopulationDensity_km2_score","Pct70_79_score","Pct80plus_score","EW_IMD_Decile_score","bph_score","RiskScore")], 
+            by = c("RGN17NM"="RGN17NM")) %>% 
+     rename(Region_PopulationDensity_km2_score = PopulationDensity_km2_score, 
+           Region_Pct70_79_score = Pct70_79_score,
+           Region_Pct80plus_score = Pct80plus_score,
+           Region_EW_IMD_Decile_score = EW_IMD_Decile_score, 
+           Region_bph_score = bph_score,
+           Region_RiskScore = RiskScore)
+
+# Join the region on to the MSOA scores
+MSOAscores<-
+MSOAscores %>% 
+  left_join(msoa_boundaries_scores[,c("msoa11cd","RGN17NM")] %>%
+        st_set_geometry(.,NULL), by = c("msoa11cd"="msoa11cd")) %>% 
+  distinct()
+
+# transform to WGS84
+msoa_boundaries_scores = st_transform(msoa_boundaries_scores, 4326)
+```
+
+
+Inputs {.sidebar}
+===================================== 
+```{r}
+# add selectors 
+
+# 1. Regions
+# selectedRegion
+regions = sort(unique(msoa_boundaries_scores$RGN17NM)) # Input the data.
+# selectedLRF
+selectInput("region_choice", label = h5('Select Region (first select "--" LRF)'),
+            choices = regions, selected = "")
+
+# selectedLRF
+lrf_regions = sort(unique(levels(msoa_boundaries_scores$lrfnm))) # Input the data.
+lrf_regions = c("--", lrf_regions)
+selectInput("lrf_region_choice", label = h5("Select LRF (will override Region)"),
+            choices = lrf_regions, selected = "--")
+
+
+# 2. Indicators
+indicators_lut = data.frame(
+  facs = c("MSOA_PopulationDensity_km2_score",  "MSOA_Pct70_79_score",  "MSOA_Pct80plus_score",
+            "MSOA_EW_IMD_Decile_score",  "MSOA_bph_score"),
+  titles = c("Population Density", "70-79 Agegroup", "80+ Agegroup","Deprivation", 
+             "Hospital Provision")) 
+
+selectInput("indicator_choice", label = h5("Select Indicator (secondary map)"),
+            choices = indicators_lut$titles, selected = "Population Density")
+
+# return paramters for use in other places 
+# **KEY POINT** in shiny apps = variables only exist in their code block 
+# unless you make them reactive and pass them out as below
+params_for_map <- reactive({
+  region_choice = input$region_choice
+  lrf_region_choice = input$lrf_region_choice
+  indicator_choice = input$indicator_choice
+  return(list(region_choice = region_choice, lrf_region_choice = lrf_region_choice, indicator_choice = indicator_choice))
+})
+```
+
+***
+
+**Information**
+
+This dashboard shows the spatial distribution of aggregate COVID19 **risk** derived from **indicators** describing Population Density, older populations (the 70-79 and 80+ age groups), deprivation and hospital provision. This can either be shown at Region or Local Resilience Forum geographies.
+
+How to use this dashboard:
+
+1. **Select** a geography
+2. **Select** an indicator
+
+Selecting a geography will update all panels.
+Slecting an indicator will update the panels focusing on a single indicator.
+
+*NB: To select a region, the LRF option should be set to "--".*
+
+***
+
+
+Overview
+===================================== 
+
+### `r renderText(if(params_for_map()$lrf_region_choice == "--"){paste("Region details: ",params_for_map()$region_choice,sep="")}else{paste("Local Resilience Forum details: ",params_for_map()$lrf_region_choice,sep="")})`
+
+
+Row 
+-----------------------------------------------------------------------
+
+### Risk score by MSOA
+
+```{r}
+# create map output - note all the work need to go within this function data mainoulations etc
+# OR be passed to it 
+# notice the first line the requires the outputs from the user inputs
+# these are then assigned to internal variables and used for selecting etc
+output$map1 <- renderLeaflet({
+  # get parameters - region
+    if(params_for_map()$lrf_region_choice == "--"){
+    # Map the region
+
+    # get parameters - region
+    req(params_for_map())
+    region_choice = params_for_map()$region_choice
+    #lrf_region_choice = "West Yorkshire"
+    # get local MSOAs
+    this_region_msoas = msoa_boundaries_scores %>% filter(RGN17NM == region_choice)
+    # get dissolved lrf_regions
+    this_regions = msoa_boundaries_scores %>% filter(RGN17NM == region_choice) %>% 
+    group_by(lrfnm) %>% 
+    summarize(arse = sum(objectid, na.rm = TRUE))
+        
+  }
+  else{
+    # Map the LRF
+  
+    # get parameters - lrf_region
+    req(params_for_map())
+    lrf_region_choice = params_for_map()$lrf_region_choice
+    #lrf_region_choice = "West Yorkshire"
+    # get local MSOAs
+    this_region_msoas = msoa_boundaries_scores %>% filter(lrfnm == lrf_region_choice)
+    # get dissolved lrf_regions
+    this_regions = msoa_boundaries_scores %>% filter(lrfnm == lrf_region_choice) %>% 
+    group_by(ladnm) %>% 
+    summarize(arse = sum(objectid, na.rm = TRUE))
+    
+  }
+
+  # create an ordered factor palette 
+  region.vals = this_region_msoas$MSOA_RiskScore
+  cat.var <- character(length(region.vals))
+  cat.var[region.vals >= 0 & region.vals <= 10] <- "1-10" 
+  cat.var[region.vals > 10 & region.vals <= 20] <- "11-20" 
+  cat.var[region.vals > 20 & region.vals <= 30] <- "21-30" 
+  cat.var[region.vals > 30 & region.vals <= 40] <- "31-40"
+  cat.var[region.vals > 40 & region.vals <= 50] <- "41-50" 
+  region.vals <- cat.var
+  pal <- colorFactor(
+    #palette = (brewer.pal(5, "RdYlBu")[c(1,3,2,4,5)]),
+    palette = c("#2C7BB6", "#ABD9E9", "#FFFFBF", "#FDAE61", "#D7191C"),
+    #palette = c("#D7191C", "#FDAE61", "#FFFFBF", "#ABD9E9", "#2C7BB6"),
+    domain = factor(c("1-10", "11-20", "21-30","31-40", "41-50")), 
+    ordered = T)
+  vals <- factor(c("1-10", "11-20", "21-30","31-40", "41-50"))
+  # old palette for numeric variables - not as crisp
+  #region.vals = region_msoas$MSOA_RiskScore
+  #pal <- colorNumeric(
+  #  #palette = (brewer.pal(5, "RdYlBu")[c(1,3,2,4,5)]),
+  #  palette = c("#D7191C", "#FDAE61", "#FFFFBF", "#ABD9E9", "#2C7BB6"),
+  #  domain = c(1,11,21,31,41,51), reverse =F)
+  
+  # create the map
+  map1 <- leaflet(this_region_msoas) %>% 
+    addTiles() %>%
+    addProviderTiles(providers$OpenStreetMap) %>% 
+    addPolygons(data = this_region_msoas,
+                stroke = T, 
+                weight = 1,
+                smoothFactor = 0.5,
+                fillOpacity = 0.7,
+                opacity = 0.5, 
+                fillColor = ~pal(region.vals)) %>%
+    addPolygons(data=this_regions, stroke = T, weight = 2, fill = F, color = "black") %>%
+    addLegend(pal = pal, values = region.vals,
+            title = paste("Risk Score"), position = "bottomleft")  
+  return(map1)
+
+})
+# call map
+leafletOutput('map1', width = "100%", height = 600)  
+
+```
+
+### Indicator scores by MSOA (secondary map)
+
+```{r}
+# create map output - note all the work need to go within this function data mainoulations etc
+# OR be passed to it 
+# notice the first line the requires the outputs from the user inputs
+# these are then assigned to internal variables and used for selecting etc
+output$map2 <- renderLeaflet({
+
+    if(params_for_map()$lrf_region_choice == "--"){
+    # Map the region
+    req(params_for_map())
+    this_region_choice = params_for_map()$region_choice
+    #this_region_choice = "Yorkshire and The Humber" 
+    
+    # get local MSOAs
+    region_msoas = msoa_boundaries_scores %>% filter(RGN17NM == this_region_choice)
+    # get dissolved regions
+    regions = msoa_boundaries_scores %>% filter(RGN17NM == this_region_choice) %>% 
+    group_by(lrfnm) %>% 
+    summarize(arse = sum(objectid, na.rm = TRUE))
+  }
+  else{
+  # get parameters - region
+    req(params_for_map())
+    this_region_choice = params_for_map()$lrf_region_choice
+    #region_choice = "West Yorkshire" 
+    
+    # get local MSOAs
+    region_msoas = msoa_boundaries_scores %>% filter(lrfnm == this_region_choice)
+    # get dissolved regions
+    regions = msoa_boundaries_scores %>% filter(lrfnm == this_region_choice) %>% 
+    group_by(ladnm) %>% 
+    summarize(arse = sum(objectid, na.rm = TRUE))
+  }
+  
+  indicator_choice = params_for_map()$indicator_choice
+  # development
+  #indicator_choice = "Population Density"
+  
+  # link indicators nice drop-down names to field names in the data 
+  indicators_lut = data.frame(
+    facs = c("MSOA_PopulationDensity_km2_score",  "MSOA_Pct70_79_score",  "MSOA_Pct80plus_score",
+            "MSOA_EW_IMD_Decile_score",  "MSOA_bph_score"),
+    titles = c("Population Density", "70-79 Agegroup", "80+ Agegroup","Deprivation", 
+             "Hospital Provision")) 
+  indicator_var = as.character(
+    indicators_lut$facs[match(indicator_choice, indicators_lut$titles)])
+
+  # create an ordered factor palette 
+  region.vals = as.vector(unlist(st_drop_geometry(region_msoas[, indicator_var])))
+  cat.var <- character(length(region.vals))
+  cat.var[region.vals >= 1 & region.vals <= 2] <- "1-2" 
+  cat.var[region.vals >= 3 & region.vals <= 4] <- "3-4" 
+  cat.var[region.vals >= 5 & region.vals <= 6] <- "5-6" 
+  cat.var[region.vals >= 7 & region.vals <= 8] <- "7-8"
+  cat.var[region.vals >= 9 & region.vals <= 10] <- "9-10" 
+  region.vals <- cat.var
+  pal <- colorFactor(
+    palette = c("#2C7BB6", "#ABD9E9", "#FFFFBF", "#FDAE61", "#D7191C"),
+    domain = factor(c("1-2", "3-4", "5-6","7-8", "9-10")), 
+    ordered = T)
+  
+  # create the map
+  map2 <- leaflet(region_msoas) %>% 
+    
+    addTiles() %>%
+    addProviderTiles(providers$OpenStreetMap) %>% 
+    addPolygons(data = region_msoas,
+                stroke = T, 
+                weight = 1,
+                smoothFactor = 0.5,
+                fillOpacity = 0.7,
+                opacity = 0.5, 
+                fillColor = ~pal(region.vals)) %>%
+    addPolygons(data=regions, stroke = T, weight = 2, fill = F, color = "black") %>%
+    addLegend(pal = pal, values = region.vals,
+            title = paste(indicator_choice, " score",sep=""), position = "bottomleft")  
+  return(map2)
+
+
+})
+
+# call map
+leafletOutput('map2', width = "100%", height = 600)  
+
+
+```
+
+Row 
+-----------------------------------------------------------------------
+
+### **Overall Risk**
+
+```{r}
+
+renderGauge({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get population density score
+      this_risk_score = Regionscores %>%
+                                 filter(RGN17NM == region_choice) %>%
+                                 select(RiskScore) %>%
+                                 pull()
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      this_risk_score = LRFscores %>%
+                                 filter(lrfnm == lrf_region_choice) %>%
+                                 select(RiskScore) %>%
+                                 pull()    
+  }
+  
+  gauge(this_risk_score, min = 0, max = 50, gaugeSectors(success = c(0, 15),warning=c(16,35),danger =c(36,50),
+                                         colors=c("#2C7BB6","#FFFFBF","#D7191C")))
+  
+})
+
+```
+
+### Population Density
+
+```{r}
+
+renderGauge({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get population density score
+      this_population_density = Regionscores %>%
+                                 filter(RGN17NM == region_choice) %>%
+                                 select(PopulationDensity_km2_score) %>%
+                                 pull()
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      this_population_density = LRFscores %>%
+                                 filter(lrfnm == lrf_region_choice) %>%
+                                 select(PopulationDensity_km2_score) %>%
+                                 pull()    
+  }
+  
+  gauge(this_population_density, min = 0, max = 10, gaugeSectors(success = c(0, 3),warning=c(4,7),danger =c(8,10),
+                                         colors=c("#2C7BB6","#FFFFBF","#D7191C")))
+  
+})
+
+```
+
+
+### Aged 70-79
+
+```{r}
+
+renderGauge({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get population density score
+      this_7079 = Regionscores %>%
+                                 filter(RGN17NM == region_choice) %>%
+                                 select(Pct70_79_score) %>%
+                                 pull()
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      this_7079 = LRFscores %>%
+                                 filter(lrfnm == lrf_region_choice) %>%
+                                 select(Pct70_79_score) %>%
+                                 pull()    
+  }
+  
+  gauge(this_7079, min = 0, max = 10, gaugeSectors(success = c(0, 3),warning=c(4,7),danger =c(8,10),
+                                         colors=c("#2C7BB6","#FFFFBF","#D7191C")))
+  
+})
+
+```
+
+### Aged 80+
+
+```{r}
+
+renderGauge({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get population density score
+      this_80plus = Regionscores %>%
+                                 filter(RGN17NM == region_choice) %>%
+                                 select(Pct80plus_score) %>%
+                                 pull()
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      this_80plus = LRFscores %>%
+                                 filter(lrfnm == lrf_region_choice) %>%
+                                 select(Pct80plus_score) %>%
+                                 pull()    
+  }
+  
+  gauge(this_80plus, min = 0, max = 10, gaugeSectors(success = c(0, 3),warning=c(4,7),danger =c(8,10),
+                                         colors=c("#2C7BB6","#FFFFBF","#D7191C")))
+  
+})
+
+```
+
+
+
+### Deprivation
+
+```{r}
+
+renderGauge({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get population density score
+      this_deprivation = Regionscores %>%
+                                 filter(RGN17NM == region_choice) %>%
+                                 select(EW_IMD_Decile_score) %>%
+                                 pull()
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      this_deprivation = LRFscores %>%
+                                 filter(lrfnm == lrf_region_choice) %>%
+                                 select(EW_IMD_Decile_score) %>%
+                                 pull()    
+  }
+  
+  gauge(this_deprivation, min = 0, max = 10, gaugeSectors(success = c(0, 3),warning=c(4,7),danger =c(8,10),
+                                         colors=c("#2C7BB6","#FFFFBF","#D7191C")))
+  
+})
+
+```
+
+
+### Hospital provision
+
+```{r}
+
+renderGauge({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get population density score
+      this_hospital_provision = Regionscores %>%
+                                 filter(RGN17NM == region_choice) %>%
+                                 select(bph_score) %>%
+                                 pull()
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      this_hospital_provision = LRFscores %>%
+                                 filter(lrfnm == lrf_region_choice) %>%
+                                 select(bph_score) %>%
+                                 pull()    
+  }
+  
+  gauge(this_hospital_provision, min = 0, max = 10, gaugeSectors(success = c(0, 3),warning=c(4,7),danger =c(8,10),
+                                         colors=c("#2C7BB6","#FFFFBF","#D7191C")))
+  
+})
+
+```
+
+
+
+Row 
+-----------------------------------------------------------------------
+
+### Comparison with national picture
+
+```{r}
+# specify what is going on here! 
+plotOutput("distPlot")
+
+# create a renderplot
+# again note the passing of  paramters 
+# there is some duplicartion going on here - the filtering could be done once for example! 
+output$distPlot <- renderPlot({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+  this_region_choice = params_for_map()$region_choice
+  #lrf_region_choice = "West Yorkshire"
+  # Get the LRF Risk Scores
+  this_RiskScores <-  MSOAscores %>% filter(RGN17NM == this_region_choice) %>% dplyr::select(RiskScore)
+  }
+  else{
+    this_region_choice = params_for_map()$lrf_region_choice
+    #lrf_region_choice = "West Yorkshire"
+    # Get the LRF Risk Scores
+    this_RiskScores <-  MSOAscores %>% filter(lrfnm == this_region_choice) %>% dplyr::select(RiskScore)
+  }
+
+  # Get the LRF Risk Scores
+  LRFRiskScores <-  MSOAscores %>% filter(lrfnm == this_region_choice) %>% dplyr::select(RiskScore)
+  # Merge the datasets
+  RiskScores <- 
+    data.frame(Type = "National", RiskScore = MSOAscores$RiskScore) %>%
+    rbind(data.frame(Type = this_region_choice, RiskScore = this_RiskScores$RiskScore))
+  ggplot(data = RiskScores, aes(x=RiskScore, fill=Type)) +
+  geom_density(alpha=.5) +
+  labs(title = "Distribution of Risk Scores") +
+  labs(y="Density") +
+  labs(x="Risk Scores")+
+  theme(text = element_text(size=10), legend.position="bottom", legend.box = "horizontal")
+  # add any additional ggplot parameters  
+
+})
+
+```
+
+### `r renderText(if(params_for_map()$lrf_region_choice == "--"){paste("Rankings of Local Resilience Forums in  ",params_for_map()$region_choice,sep="")}else{paste("Rankings of Local Authorities in ",params_for_map()$lrf_region_choice,sep="")})`
+
+```{r}
+
+renderDT({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get data for table
+      LRFscores %>%
+          filter(RGN17NM == region_choice) %>%
+          arrange(RiskScore) %>%
+          select("LRF" = lrfnm,
+                 "Overall Risk" = RiskScore,
+                 "Population Density" = PopulationDensity_km2_score,
+                 "70-79 Agegroup" = Pct70_79_score,
+                 "80+ Agegroup" = Pct80plus_score,
+                 "Deprivation" = EW_IMD_Decile_score,
+                 "Hospital Provision" = bph_score) -> tmp2
+
+      brks1 <- seq(10,49,10)
+      brks2 <- seq(2, 9, 2)
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      LAscores %>%
+        filter(lrfnm == lrf_region_choice) %>%
+        arrange(RiskScore) %>%
+        select("Local Authority" = ladnm,
+               "Overall Risk" = RiskScore,
+               "Population Density" = PopulationDensity_km2_score,
+               "70-79 Agegroup" = Pct70_79_score,
+               "80+ Agegroup" = Pct80plus_score,
+               "Deprivation" = EW_IMD_Decile_score,
+               "Hospital Provision" = bph_score) -> tmp2
+
+        brks1 <- seq(10,49,10)
+        brks2 <- seq(2, 9, 2)
+  }
+
+  clrs <- c("#95bcd9","#d4eaf2","#fefddd","#fcd5ad","#e88987")
+
+  font.size <- "6pt"
+
+  # ## uses a bit of css - from here 
+  # # https://stackoverflow.com/questions/44101055/changing-font-size-in-r-datatables-dt
+  # tmp2 %>% 
+  #    DT::datatable(
+  #      options=list(
+  #        initComplete = htmlwidgets::JS(
+  #           "function(settings, json) {",
+  #           paste0("$(this.api().table().container()).css({'font-size': '", font.size, "'});"),
+  #           "}"), autoWidth = TRUE, pageLength = 5, scrollX = T,
+  #               columnDefs = list(list(width = '10%', className = 'dt-center', targets = c(2:7)))
+  #        ) 
+  #      ) %>% 
+  #     formatStyle(names(tmp2[names(tmp2) != "Risk Score"]),backgroundColor = styleInterval(brks2, clrs),fontWeight = 'bold',color = 'black') %>% 
+  #     formatStyle(names(tmp2[2]), backgroundColor = styleInterval(brks1, clrs),fontWeight = 'bold',color = 'black')
+  
+    tmp2 %>% DT::datatable(options=list(
+    autoWidth = TRUE, scrollX = T,columnDefs = list(list(width = '15%', className = 'dt-center', targets = c(2:7))))) %>% 
+    formatStyle(names(tmp2[!(names(tmp2) %in% c("Overall Risk"))]),backgroundColor = styleInterval(brks2, clrs), color = 'black',border = '1px solid #c4c4c4') %>% 
+    formatStyle(names(tmp2[2]), backgroundColor = styleInterval(brks1, clrs), color = 'black',border = '1px solid #c4c4c4')
+  
+})
+
+
+# below is some css code for manipulating the header for the multi-page panel FD
+
+```
+
+Benchmarks {data-orientation=rows}
+===================================== 
+
+### `r renderText(if(params_for_map()$lrf_region_choice == "--"){paste("Region summary: ",params_for_map()$region_choice,sep="")}else{paste("Local Resilience Forum summary: ",params_for_map()$lrf_region_choice,sep="")})`
+
+
+Row
+-------------------------------------
+
+### **Overall Risk**
+
+```{r}
+
+renderGauge({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get population density score
+      this_risk_score = Regionscores %>%
+                                 filter(RGN17NM == region_choice) %>%
+                                 select(RiskScore) %>%
+                                 pull()
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      this_risk_score = LRFscores %>%
+                                 filter(lrfnm == lrf_region_choice) %>%
+                                 select(RiskScore) %>%
+                                 pull()    
+  }
+  
+  gauge(this_risk_score, min = 0, max = 50, gaugeSectors(success = c(0, 15),warning=c(16,35),danger =c(36,50),
+                                         colors=c("#2C7BB6","#FFFFBF","#D7191C")))
+  
+})
+
+```
+
+### Population Density
+
+```{r}
+
+renderGauge({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get population density score
+      this_population_density = Regionscores %>%
+                                 filter(RGN17NM == region_choice) %>%
+                                 select(PopulationDensity_km2_score) %>%
+                                 pull()
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      this_population_density = LRFscores %>%
+                                 filter(lrfnm == lrf_region_choice) %>%
+                                 select(PopulationDensity_km2_score) %>%
+                                 pull()    
+  }
+  
+  gauge(this_population_density, min = 0, max = 10, gaugeSectors(success = c(0, 3),warning=c(4,7),danger =c(8,10),
+                                         colors=c("#2C7BB6","#FFFFBF","#D7191C")))
+  
+})
+
+```
+
+
+### Aged 70-79
+
+```{r}
+
+renderGauge({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get population density score
+      this_7079 = Regionscores %>%
+                                 filter(RGN17NM == region_choice) %>%
+                                 select(Pct70_79_score) %>%
+                                 pull()
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      this_7079 = LRFscores %>%
+                                 filter(lrfnm == lrf_region_choice) %>%
+                                 select(Pct70_79_score) %>%
+                                 pull()    
+  }
+  
+  gauge(this_7079, min = 0, max = 10, gaugeSectors(success = c(0, 3),warning=c(4,7),danger =c(8,10),
+                                         colors=c("#2C7BB6","#FFFFBF","#D7191C")))
+  
+})
+
+```
+
+### Aged 80+
+
+```{r}
+
+renderGauge({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get population density score
+      this_80plus = Regionscores %>%
+                                 filter(RGN17NM == region_choice) %>%
+                                 select(Pct80plus_score) %>%
+                                 pull()
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      this_80plus = LRFscores %>%
+                                 filter(lrfnm == lrf_region_choice) %>%
+                                 select(Pct80plus_score) %>%
+                                 pull()    
+  }
+  
+  gauge(this_80plus, min = 0, max = 10, gaugeSectors(success = c(0, 3),warning=c(4,7),danger =c(8,10),
+                                         colors=c("#2C7BB6","#FFFFBF","#D7191C")))
+  
+})
+
+```
+
+
+
+### Deprivation
+
+```{r}
+
+renderGauge({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get population density score
+      this_deprivation = Regionscores %>%
+                                 filter(RGN17NM == region_choice) %>%
+                                 select(EW_IMD_Decile_score) %>%
+                                 pull()
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      this_deprivation = LRFscores %>%
+                                 filter(lrfnm == lrf_region_choice) %>%
+                                 select(EW_IMD_Decile_score) %>%
+                                 pull()    
+  }
+  
+  gauge(this_deprivation, min = 0, max = 10, gaugeSectors(success = c(0, 3),warning=c(4,7),danger =c(8,10),
+                                         colors=c("#2C7BB6","#FFFFBF","#D7191C")))
+  
+})
+
+```
+
+
+### Hospital provision
+
+```{r}
+
+renderGauge({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get population density score
+      this_hospital_provision = Regionscores %>%
+                                 filter(RGN17NM == region_choice) %>%
+                                 select(bph_score) %>%
+                                 pull()
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      this_hospital_provision = LRFscores %>%
+                                 filter(lrfnm == lrf_region_choice) %>%
+                                 select(bph_score) %>%
+                                 pull()    
+  }
+  
+  gauge(this_hospital_provision, min = 0, max = 10, gaugeSectors(success = c(0, 3),warning=c(4,7),danger =c(8,10),
+                                         colors=c("#2C7BB6","#FFFFBF","#D7191C")))
+  
+})
+
+```
+
+
+Row 
+-------------------------------------
+
+### **Ranking table**
+
+```{r}
+# straightforwatd with DT::datatable
+
+renderDT({
+
+  if(params_for_map()$lrf_region_choice == "--"){
+      # get parameters - region
+      req(params_for_map())
+      region_choice = params_for_map()$region_choice
+      # get data for table
+      Regionscores %>% 
+          arrange(RiskScore) %>% 
+          select("Region" = RGN17NM, 
+                 "Risk Score" = RiskScore,
+                 "Population Density Score" = PopulationDensity_km2_score,
+                 "70-79 Agegroup Score" = Pct70_79_score,
+                 "80+ Agegroup Score" = Pct80plus_score,
+                 "Deprivation Score" = EW_IMD_Decile_score,
+                 "Hospital Provision Score" = bph_score) -> tmp
+  
+      brks1 <- seq(10,49,10)
+      brks2 <- seq(2, 9, 2)
+
+  }
+  else{
+      # get parameters - region
+      req(params_for_map())
+      lrf_region_choice = params_for_map()$lrf_region_choice
+      # get population density score
+      LRFscores %>% 
+                arrange(RiskScore) %>% 
+                select("Local Resilience Forum" = lrfnm, 
+                       "Risk Score" = RiskScore,
+                       "Population Density Score" = PopulationDensity_km2_score,
+                       "70-79 Agegroup Score" = Pct70_79_score,
+                       "80+ Agegroup Score" = Pct80plus_score,
+                       "Deprivation Score" = EW_IMD_Decile_score,
+                       "Hospital Provision Score" = bph_score) -> tmp
+        
+        brks1 <- seq(10,49,10)
+        brks2 <- seq(2, 9, 2)
+  }
+
+  clrs <- c("#95bcd9","#d4eaf2","#fefddd","#fcd5ad","#e88987")
+
+  tmp %>% DT::datatable(options=list(
+    autoWidth = TRUE, scrollX = T,columnDefs = list(list(width = '12%', className = 'dt-center', targets = c(2:7))))) %>% 
+    formatStyle(names(tmp[names(tmp) != "Overall Risk"]),backgroundColor = styleInterval(brks2, clrs), color = 'black',border = '1px solid #c4c4c4') %>% 
+    formatStyle(names(tmp[2]), backgroundColor = styleInterval(brks1, clrs), color = 'black')
+  
+})
+
+# below is some css code for manipulating the header for the multi-page panel FD
+
+```
+
+
+
+ <style>
+
+    .storyboard-nav .sbframelist {
+        margin: 0 auto;
+        width: 94%;
+        height: 50px;
+        overflow: hidden;
+        text-shadow: none;
+        margin-bottom: 8px;
+    }
+
+    .storyboard-nav .sbnext, .storyboard-nav .sbprev {
+        float: left;
+        width: 2%;
+        height: 50px;
+        font-size: 50px;
+    }
+
+    </style>

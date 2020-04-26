@@ -1,0 +1,340 @@
+ladcd,ladnm,lrfcd,lrfnm,RGN17NM,PopulationDensity_km2_score,Pct70_79_score,Pct80plus_score,EW_IMD_Decile_score,bph_score,RiskScore
+E07000090,Havant,E48000014,Hampshire & Isle of Wight,South East,7,8,9,7,10,41
+E06000027,Torbay,E48000008,"Devon, Cornwall & Isle of Scilly",South West,8,10,10,9,10,47
+E06000044,Portsmouth,E48000014,Hampshire & Isle of Wight,South East,10,2,2,9,10,33
+E06000038,Reading,E48000033,Thames Valley,South East,9,1,1,6,10,27
+E06000055,Bedford,E48000002,Bedfordshire,East of England,7,3,5,6,10,31
+E06000030,Swindon,E48000038,Wiltshire & Swindon,South West,9,2,2,5,10,28
+E07000088,Gosport,E48000014,Hampshire & Isle of Wight,South East,8,6,6,6,10,36
+E07000108,Dover,E48000017,Kent,South East,4,9,8,7,10,38
+E07000114,Thanet,E48000017,Kent,South East,8,8,8,9,10,43
+E07000106,Canterbury,E48000017,Kent,South East,5,7,7,5,10,34
+E06000042,Milton Keynes,E48000033,Thames Valley,South East,6,2,1,5,10,24
+E07000112,Folkestone and Hythe,E48000017,Kent,South East,7,9,9,8,10,43
+E07000202,Ipswich,E48000030,Suffolk,East of England,9,3,5,8,10,35
+E07000076,Tendring,E48000011,Essex,East of England,5,10,10,10,10,45
+E07000071,Colchester,E48000011,Essex,East of England,6,4,4,4,10,28
+E07000200,Babergh,E48000030,Suffolk,East of England,1,10,9,4,10,34
+E06000032,Luton,E48000002,Bedfordshire,East of England,10,1,2,9,10,32
+E06000056,Central Bedfordshire,E48000002,Bedfordshire,East of England,5,4,3,2,10,24
+E06000041,Wokingham,E48000033,Thames Valley,South East,5,3,4,1,10,23
+E06000019,"Herefordshire, County of",E48000035,West Mercia,West Midlands,3,8,9,6,10,36
+E07000087,Fareham,E48000014,Hampshire & Isle of Wight,South East,6,8,9,1,10,34
+E07000046,Torridge,E48000008,"Devon, Cornwall & Isle of Scilly",South West,2,10,10,8,10,40
+E07000043,North Devon,E48000008,"Devon, Cornwall & Isle of Scilly",South West,2,9,9,7,10,37
+E07000105,Ashford,E48000017,Kent,South East,4,7,5,6,10,32
+E07000081,Gloucester,E48000012,Gloucestershire,South West,9,3,4,6,10,32
+E08000033,Calderdale,E48000037,West Yorkshire,Yorkshire and The Humber,5,4,3,8,10,30
+E07000146,King's Lynn and West Norfolk,E48000023,Norfolk,East of England,2,10,10,8,10,40
+E07000044,South Hams,E48000008,"Devon, Cornwall & Isle of Scilly",South West,1,10,10,4,10,35
+E07000006,South Bucks,E48000033,Thames Valley,South East,3,6,9,1,10,29
+E07000203,Mid Suffolk,E48000030,Suffolk,East of England,1,9,8,4,10,32
+E07000063,Lewes,E48000032,Sussex,South East,4,9,10,4,10,37
+E07000244,East Suffolk,E48000030,Suffolk,East of England,4,10,10,6,10,40
+E06000039,Slough,E48000033,Thames Valley,South East,9,1,1,9,10,30
+E06000010,"Kingston upon Hull, City of",E48000016,Humber,Yorkshire and The Humber,9,2,2,10,9,32
+E07000082,Stroud,E48000012,Gloucestershire,South West,2,8,7,2,9,28
+E08000032,Bradford,E48000037,West Yorkshire,Yorkshire and The Humber,8,2,2,10,9,31
+E07000065,Wealden,E48000032,Sussex,South East,2,9,10,3,9,33
+E09000017,Hillingdon,E48000021,London,London,9,2,2,5,9,27
+E07000113,Swale,E48000017,Kent,South East,4,6,3,9,9,31
+E07000140,South Holland,E48000020,Lincolnshire,East Midlands,2,9,9,6,9,35
+E07000096,Dacorum,E48000015,Hertfordshire,East of England,6,3,5,3,9,26
+E06000031,Peterborough,E48000003,Cambridgeshire,East of England,7,2,2,8,9,28
+E06000009,Blackpool,E48000018,Lancashire,North West,9,6,5,10,9,39
+E06000016,Leicester,E48000019,Leicestershire,East Midlands,10,1,1,10,9,31
+E07000135,Oadby and Wigston,E48000019,Leicestershire,East Midlands,7,6,10,4,9,36
+E07000102,Three Rivers,E48000015,Hertfordshire,East of England,5,3,6,2,9,25
+E06000035,Medway,E48000017,Kent,South East,9,3,2,7,9,30
+E06000040,Windsor and Maidenhead,E48000033,Thames Valley,South East,6,4,6,1,9,26
+E07000005,Chiltern,E48000033,Thames Valley,South East,3,6,9,1,9,28
+E07000103,Watford,E48000015,Hertfordshire,East of England,9,1,2,4,9,25
+E07000010,Fenland,E48000003,Cambridgeshire,East of England,2,8,8,9,9,36
+E06000037,West Berkshire,E48000033,Thames Valley,South East,4,5,4,1,9,23
+E07000145,Great Yarmouth,E48000023,Norfolk,East of England,5,9,8,10,9,41
+E07000129,Blaby,E48000019,Leicestershire,East Midlands,4,6,6,1,9,26
+E07000007,Wycombe,E48000033,Thames Valley,South East,6,4,6,2,9,27
+E07000240,St Albans,E48000015,Hertfordshire,East of England,7,3,5,1,9,25
+E07000228,Mid Sussex,E48000032,Sussex,South East,5,6,7,1,9,28
+E07000045,Teignbridge,E48000008,"Devon, Cornwall & Isle of Scilly",South West,3,10,10,4,9,36
+E07000061,Eastbourne,E48000032,Sussex,South East,9,8,10,7,9,43
+E07000226,Crawley,E48000032,Sussex,South East,8,1,1,7,9,26
+E07000243,Stevenage,E48000015,Hertfordshire,East of England,9,2,3,7,9,30
+E07000225,Chichester,E48000032,Sussex,South East,2,10,10,3,9,34
+E06000043,Brighton and Hove,E48000032,Sussex,South East,10,1,2,6,9,28
+E07000073,Harlow,E48000011,Essex,East of England,8,2,3,8,9,30
+E06000023,"Bristol, City of",E48000001,Avon & Somerset,South West,10,1,2,8,9,30
+E09000015,Harrow,E48000021,London,London,10,2,3,4,9,28
+E06000011,East Riding of Yorkshire,E48000016,Humber,Yorkshire and The Humber,3,9,9,4,9,34
+W06000006,Wrexham,W41000003,North Wales,Wales,4,6,4,6,8,28
+E09000016,Havering,E48000021,London,London,8,3,7,4,8,30
+E07000189,South Somerset,E48000001,Avon & Somerset,South West,4,9,9,6,8,36
+E07000095,Broxbourne,E48000015,Hertfordshire,East of England,7,4,5,5,8,29
+E07000241,Welwyn Hatfield,E48000015,Hertfordshire,East of England,6,2,6,3,8,25
+E09000002,Barking and Dagenham,E48000021,London,London,10,1,1,10,8,30
+E07000098,Hertsmere,E48000015,Hertfordshire,East of England,6,3,6,3,8,26
+E09000009,Ealing,E48000021,London,London,10,1,1,8,8,28
+E07000154,Northampton,E48000025,Northamptonshire,East Midlands,9,3,2,7,8,29
+E07000242,East Hertfordshire,E48000015,Hertfordshire,East of England,5,3,4,1,8,21
+E09000026,Redbridge,E48000021,London,London,10,1,1,5,8,25
+E07000085,East Hampshire,E48000014,Hampshire & Isle of Wight,South East,3,8,8,2,8,29
+E09000018,Hounslow,E48000021,London,London,10,1,1,8,8,28
+E07000072,Epping Forest,E48000011,Essex,East of England,5,5,7,4,8,29
+E08000031,Wolverhampton,E48000036,West Midlands,West Midlands,9,3,4,10,8,34
+E07000155,South Northamptonshire,E48000025,Northamptonshire,East Midlands,1,7,4,1,8,21
+E09000010,Enfield,E48000021,London,London,10,2,2,9,8,31
+E07000062,Hastings,E48000032,Sussex,South East,9,4,4,10,8,35
+E08000030,Walsall,E48000036,West Midlands,West Midlands,8,4,5,9,8,34
+E09000031,Waltham Forest,E48000021,London,London,10,1,1,9,8,29
+E07000064,Rother,E48000032,Sussex,South East,4,10,10,7,8,39
+E07000213,Spelthorne,E48000031,Surrey,South East,7,4,6,4,8,29
+E06000025,South Gloucestershire,E48000001,Avon & Somerset,South West,7,5,6,2,8,28
+E07000099,North Hertfordshire,E48000015,Hertfordshire,East of England,5,4,7,2,8,26
+E07000130,Charnwood,E48000019,Leicestershire,East Midlands,5,4,4,2,8,23
+E07000028,Carlisle,E48000006,Cumbria,North West,5,7,7,7,8,34
+E09000025,Newham,E48000021,London,London,10,1,1,10,8,30
+E07000215,Tandridge,E48000031,Surrey,South East,3,6,8,3,8,28
+E07000004,Aylesbury Vale,E48000033,Thames Valley,South East,5,3,3,2,8,21
+E06000052,Cornwall,E48000008,"Devon, Cornwall & Isle of Scilly",South West,3,9,8,8,8,36
+E09000014,Haringey,E48000021,London,London,10,1,1,9,8,29
+E07000245,West Suffolk,E48000030,Suffolk,East of England,3,7,7,5,8,30
+E09000030,Tower Hamlets,E48000021,London,London,10,1,1,10,8,30
+E09000012,Hackney,E48000021,London,London,10,1,1,10,8,30
+E07000196,South Staffordshire,E48000029,Staffordshire,West Midlands,3,9,8,3,7,30
+E06000026,Plymouth,E48000008,"Devon, Cornwall & Isle of Scilly",South West,9,4,5,8,7,33
+E07000132,Hinckley and Bosworth,E48000019,Leicestershire,East Midlands,4,7,6,3,7,27
+E06000022,Bath and North East Somerset,E48000001,Avon & Somerset,South West,7,4,6,2,7,26
+E09000003,Barnet,E48000021,London,London,10,2,2,5,7,26
+E09000005,Brent,E48000021,London,London,10,1,1,9,7,28
+E06000033,Southend-on-Sea,E48000011,Essex,East of England,9,5,7,6,7,34
+E09000011,Greenwich,E48000021,London,London,10,1,1,8,7,27
+E07000222,Warwick,E48000034,Warwickshire,West Midlands,6,5,6,2,7,26
+E07000079,Cotswold,E48000012,Gloucestershire,South West,1,9,9,2,7,28
+E07000211,Reigate and Banstead,E48000031,Surrey,South East,6,3,6,2,7,24
+E07000026,Allerdale,E48000006,Cumbria,North West,1,8,8,7,7,31
+E09000004,Bexley,E48000021,London,London,9,3,5,4,7,28
+E09000027,Richmond upon Thames,E48000021,London,London,9,2,2,1,7,21
+E07000194,Lichfield,E48000029,Staffordshire,West Midlands,4,9,7,3,7,30
+E09000019,Islington,E48000021,London,London,10,1,1,10,7,29
+E07000128,Wyre,E48000018,Lancashire,North West,5,10,10,6,7,38
+E09000001,City of London,E48000021,London,London,7,3,3,4,7,24
+E09000023,Lewisham,E48000021,London,London,10,1,1,10,7,29
+E06000017,Rutland,E48000019,Leicestershire,East Midlands,1,9,9,1,7,27
+E07000131,Harborough,E48000019,Leicestershire,East Midlands,2,7,7,1,7,24
+E07000151,Daventry,E48000025,Northamptonshire,East Midlands,2,7,4,3,7,23
+E06000046,Isle of Wight,E48000014,Hampshire & Isle of Wight,South East,3,10,10,8,7,38
+E07000212,Runnymede,E48000031,Surrey,South East,5,3,5,2,7,22
+E09000028,Southwark,E48000021,London,London,10,1,1,9,7,28
+E09000007,Camden,E48000021,London,London,10,1,1,6,7,25
+E09000006,Bromley,E48000021,London,London,8,3,5,3,7,26
+E07000192,Cannock Chase,E48000029,Staffordshire,West Midlands,6,5,3,6,7,27
+E06000036,Bracknell Forest,E48000033,Thames Valley,South East,7,2,2,1,7,19
+E08000028,Sandwell,E48000036,West Midlands,West Midlands,9,2,3,10,7,31
+E07000199,Tamworth,E48000029,Staffordshire,West Midlands,7,5,2,7,7,28
+E08000025,Birmingham,E48000036,West Midlands,West Midlands,9,1,2,10,7,29
+E07000111,Sevenoaks,E48000017,Kent,South East,2,7,8,2,7,26
+E08000029,Solihull,E48000036,West Midlands,West Midlands,8,6,8,4,7,33
+E07000187,Mendip,E48000001,Avon & Somerset,South West,4,8,8,5,6,31
+E09000033,Westminster,E48000021,London,London,10,1,1,6,6,24
+E07000030,Eden,E48000006,Cumbria,North West,1,9,9,6,6,31
+E07000207,Elmbridge,E48000031,Surrey,South East,6,3,7,1,6,23
+E07000067,Braintree,E48000011,Essex,East of England,4,6,5,4,6,25
+E09000013,Hammersmith and Fulham,E48000021,London,London,10,1,1,8,6,26
+E09000022,Lambeth,E48000021,London,London,10,1,1,10,6,28
+E09000020,Kensington and Chelsea,E48000021,London,London,10,3,2,7,6,28
+E06000054,Wiltshire,E48000038,Wiltshire & Swindon,South West,4,7,7,3,6,27
+E07000116,Tunbridge Wells,E48000017,Kent,South East,5,4,7,2,6,24
+E09000021,Kingston upon Thames,E48000021,London,London,10,2,2,2,6,22
+E07000133,Melton,E48000019,Leicestershire,East Midlands,2,8,6,2,6,24
+E07000218,North Warwickshire,E48000034,Warwickshire,West Midlands,1,8,6,6,6,27
+E08000001,Bolton,E48000013,Greater Manchester,North West,8,4,2,9,6,29
+E09000008,Croydon,E48000021,London,London,10,2,2,7,6,27
+E08000027,Dudley,E48000036,West Midlands,West Midlands,8,6,6,7,6,33
+E07000221,Stratford-on-Avon,E48000034,Warwickshire,West Midlands,1,9,10,2,6,28
+E09000032,Wandsworth,E48000021,London,London,10,1,1,5,6,23
+E07000083,Tewkesbury,E48000012,Gloucestershire,South West,2,8,8,2,6,26
+E06000003,Redcar and Cleveland,E48000005,Cleveland,North East,5,8,7,9,6,35
+E08000034,Kirklees,E48000037,West Yorkshire,Yorkshire and The Humber,6,4,3,8,6,27
+E07000109,Gravesham,E48000017,Kent,South East,8,4,4,6,6,28
+E07000107,Dartford,E48000017,Kent,South East,7,2,3,6,6,24
+E09000024,Merton,E48000021,London,London,10,1,1,3,6,21
+E07000011,Huntingdonshire,E48000003,Cambridgeshire,East of England,3,6,5,3,6,23
+E09000029,Sutton,E48000021,London,London,10,2,3,3,6,24
+E06000013,North Lincolnshire,E48000016,Humber,Yorkshire and The Humber,4,6,6,7,6,29
+E07000208,Epsom and Ewell,E48000031,Surrey,South East,8,4,5,1,6,24
+E07000143,Breckland,E48000023,Norfolk,East of England,2,9,9,7,6,33
+E07000179,South Oxfordshire,E48000033,Thames Valley,South East,3,7,7,1,6,24
+E07000122,Pendle,E48000018,Lancashire,North West,5,4,3,9,6,27
+E07000219,Nuneaton and Bedworth,E48000034,Warwickshire,West Midlands,6,6,4,7,6,29
+E06000053,Isles of Scilly,E48000008,"Devon, Cornwall & Isle of Scilly",South West,1,10,9,2,6,28
+E07000220,Rugby,E48000034,Warwickshire,West Midlands,5,5,5,4,6,25
+E07000115,Tonbridge and Malling,E48000017,Kent,South East,3,5,5,3,5,21
+E07000168,Scarborough,E48000024,North Yorkshire,Yorkshire and The Humber,5,10,9,8,5,37
+E06000002,Middlesbrough,E48000005,Cleveland,North East,8,3,3,10,5,29
+E08000026,Coventry,E48000036,West Midlands,West Midlands,9,2,2,8,5,26
+E06000058,"Bournemouth, Christchurch and Poole",E48000009,Dorset,South West,8,7,9,5,5,34
+E07000234,Bromsgrove,E48000035,West Mercia,West Midlands,4,7,9,2,5,27
+E06000059,Dorset,E48000009,Dorset,South West,3,10,10,4,5,32
+E07000217,Woking,E48000031,Surrey,South East,7,3,5,1,5,21
+E07000110,Maidstone,E48000017,Kent,South East,6,6,5,4,5,26
+E07000210,Mole Valley,E48000031,Surrey,South East,2,8,10,1,5,26
+E07000094,Winchester,E48000014,Hampshire & Isle of Wight,South East,3,6,8,1,5,23
+E07000117,Burnley,E48000018,Lancashire,North West,7,5,4,10,5,31
+E07000047,West Devon,E48000008,"Devon, Cornwall & Isle of Scilly",South West,1,10,10,7,5,33
+E08000002,Bury,E48000013,Greater Manchester,North West,7,4,3,7,5,26
+E07000236,Redditch,E48000035,West Mercia,West Midlands,7,4,2,7,5,25
+E07000125,Rossendale,E48000018,Lancashire,North West,2,4,3,7,5,21
+E07000209,Guildford,E48000031,Surrey,South East,6,3,4,1,5,19
+E08000018,Rotherham,E48000028,South Yorkshire,Yorkshire and The Humber,5,6,4,9,5,29
+E07000147,North Norfolk,E48000023,Norfolk,East of England,1,10,10,8,5,34
+E06000034,Thurrock,E48000011,Essex,East of England,7,2,1,6,5,21
+E06000051,Shropshire,E48000035,West Mercia,West Midlands,3,9,9,5,5,31
+E07000216,Waverley,E48000031,Surrey,South East,3,7,9,1,5,25
+E08000006,Salford,E48000013,Greater Manchester,North West,8,2,2,10,5,27
+E07000068,Brentwood,E48000011,Essex,East of England,4,5,9,1,5,24
+E08000019,Sheffield,E48000028,South Yorkshire,Yorkshire and The Humber,9,3,4,8,5,29
+E07000078,Cheltenham,E48000012,Gloucestershire,South West,8,4,7,3,5,27
+E08000005,Rochdale,E48000013,Greater Manchester,North West,7,3,2,10,5,27
+E07000120,Hyndburn,E48000018,Lancashire,North West,5,5,3,10,5,28
+E07000119,Fylde,E48000018,Lancashire,North West,4,10,10,5,5,34
+E08000010,Wigan,E48000013,Greater Manchester,North West,6,6,2,8,5,27
+E06000024,North Somerset,E48000001,Avon & Somerset,South West,5,9,9,3,5,31
+E07000239,Wyre Forest,E48000035,West Mercia,West Midlands,6,9,8,7,5,35
+E07000174,Mansfield,E48000027,Nottinghamshire,East Midlands,6,5,4,9,5,29
+E07000086,Eastleigh,E48000014,Hampshire & Isle of Wight,South East,5,5,6,2,5,23
+E07000144,Broadland,E48000023,Norfolk,East of England,3,9,10,2,4,28
+E07000163,Craven,E48000024,North Yorkshire,Yorkshire and The Humber,1,10,10,3,4,28
+E07000141,South Kesteven,E48000020,Lincolnshire,East Midlands,3,8,7,3,4,25
+E06000020,Telford and Wrekin,E48000035,West Mercia,West Midlands,6,4,2,8,4,24
+E07000089,Hart,E48000014,Hampshire & Isle of Wight,South East,3,6,5,1,4,19
+E08000003,Manchester,E48000013,Greater Manchester,North West,10,1,1,10,4,26
+E06000008,Blackburn with Darwen,E48000018,Lancashire,North West,8,2,1,10,4,25
+E08000017,Doncaster,E48000028,South Yorkshire,Yorkshire and The Humber,4,5,5,9,4,27
+E07000214,Surrey Heath,E48000031,Surrey,South East,5,5,7,1,4,22
+E07000134,North West Leicestershire,E48000019,Leicestershire,East Midlands,2,7,4,4,4,21
+E08000009,Trafford,E48000013,Greater Manchester,North West,8,3,5,4,4,24
+E07000074,Maldon,E48000011,Essex,East of England,2,9,8,4,4,27
+E07000033,Bolsover,E48000007,Derbyshire,East Midlands,2,6,4,9,4,25
+E07000165,Harrogate,E48000024,North Yorkshire,Yorkshire and The Humber,4,8,9,2,4,27
+E07000092,Rushmoor,E48000014,Hampshire & Isle of Wight,South East,9,2,1,4,4,20
+E07000149,South Norfolk,E48000023,Norfolk,East of England,1,9,9,4,4,27
+E07000075,Rochford,E48000011,Essex,East of England,3,8,8,2,4,25
+E07000038,North East Derbyshire,E48000007,Derbyshire,East Midlands,2,10,8,4,4,28
+E07000152,East Northamptonshire,E48000025,Northamptonshire,East Midlands,2,7,5,3,4,21
+E07000148,Norwich,E48000023,Norfolk,East of England,9,2,3,9,4,27
+E07000180,Vale of White Horse,E48000033,Thames Valley,South East,4,5,7,1,4,21
+E07000156,Wellingborough,E48000025,Northamptonshire,East Midlands,5,5,3,7,4,24
+E08000004,Oldham,E48000013,Greater Manchester,North West,8,4,2,9,4,27
+E07000077,Uttlesford,E48000011,Essex,East of England,1,5,5,1,4,16
+E07000084,Basingstoke and Deane,E48000014,Hampshire & Isle of Wight,South East,6,4,3,3,4,20
+E07000080,Forest of Dean,E48000012,Gloucestershire,South West,1,9,7,6,4,27
+E07000170,Ashfield,E48000027,Nottinghamshire,East Midlands,6,6,3,9,4,28
+E06000045,Southampton,E48000014,Hampshire & Isle of Wight,South East,10,2,1,9,4,26
+E06000050,Cheshire West and Chester,E48000004,Cheshire,North West,5,7,7,5,4,28
+E07000034,Chesterfield,E48000007,Derbyshire,East Midlands,6,7,6,8,4,31
+E07000069,Castle Point,E48000011,Essex,East of England,7,10,9,4,4,34
+E07000177,Cherwell,E48000033,Thames Valley,South East,5,4,4,3,4,20
+E08000016,Barnsley,E48000028,South Yorkshire,Yorkshire and The Humber,4,5,4,9,4,26
+W06000005,Flintshire,W41000003,North Wales,Wales,2,7,5,3,4,21
+E07000027,Barrow-in-Furness,E48000006,Cumbria,North West,6,8,5,9,3,31
+E07000029,Copeland,E48000006,Cumbria,North West,2,8,7,8,3,28
+E06000001,Hartlepool,E48000005,Cleveland,North East,7,3,5,10,3,28
+E07000171,Bassetlaw,E48000027,Nottinghamshire,East Midlands,4,7,6,7,3,27
+E08000008,Tameside,E48000013,Greater Manchester,North West,7,4,3,10,3,27
+E07000181,West Oxfordshire,E48000033,Thames Valley,South East,3,7,8,1,3,22
+E08000007,Stockport,E48000013,Greater Manchester,North West,8,6,7,5,3,29
+E07000124,Ribble Valley,E48000018,Lancashire,North West,2,8,8,1,3,22
+E07000167,Ryedale,E48000024,North Yorkshire,Yorkshire and The Humber,1,10,9,5,3,28
+E07000136,Boston,E48000020,Lincolnshire,East Midlands,4,7,6,8,3,28
+E06000007,Warrington,E48000004,Cheshire,North West,6,5,3,5,3,22
+E08000035,Leeds,E48000037,West Yorkshire,Yorkshire and The Humber,8,3,3,8,3,25
+E07000035,Derbyshire Dales,E48000007,Derbyshire,East Midlands,1,10,10,2,3,26
+E07000188,Sedgemoor,E48000001,Avon & Somerset,South West,4,8,8,7,3,30
+E07000032,Amber Valley,E48000007,Derbyshire,East Midlands,3,8,6,5,3,25
+E07000176,Rushcliffe,E48000027,Nottinghamshire,East Midlands,4,7,8,1,3,23
+E07000172,Broxtowe,E48000027,Nottinghamshire,East Midlands,7,7,6,4,3,27
+E07000070,Chelmsford,E48000011,Essex,East of England,6,5,6,2,3,22
+E07000173,Gedling,E48000027,Nottinghamshire,East Midlands,7,6,6,4,3,26
+E06000018,Nottingham,E48000027,Nottinghamshire,East Midlands,9,1,1,10,3,24
+E06000014,York,E48000024,North Yorkshire,Yorkshire and The Humber,7,4,7,2,3,23
+E07000197,Stafford,E48000029,Staffordshire,West Midlands,4,8,7,3,3,25
+W06000004,Denbighshire,W41000003,North Wales,Wales,3,9,7,6,3,28
+E07000178,Oxford,E48000033,Thames Valley,South East,9,1,1,5,3,19
+E07000036,Erewash,E48000007,Derbyshire,East Midlands,6,6,7,5,3,27
+E06000049,Cheshire East,E48000004,Cheshire,North West,5,8,8,3,3,27
+E06000004,Stockton-on-Tees,E48000005,Cleveland,North East,6,4,4,7,3,24
+E07000150,Corby,E48000025,Northamptonshire,East Midlands,7,2,1,8,3,21
+E07000193,East Staffordshire,E48000029,Staffordshire,West Midlands,5,5,5,5,3,23
+E07000039,South Derbyshire,E48000007,Derbyshire,East Midlands,3,4,3,3,3,16
+E07000227,Horsham,E48000032,Sussex,South East,3,8,8,1,3,23
+E08000015,Wirral,E48000022,Merseyside,North West,8,7,7,8,3,33
+E07000037,High Peak,E48000007,Derbyshire,East Midlands,2,7,4,4,3,20
+E07000153,Kettering,E48000025,Northamptonshire,East Midlands,7,5,3,5,3,23
+E07000118,Chorley,E48000018,Lancashire,North West,4,6,3,4,2,19
+E08000012,Liverpool,E48000022,Merseyside,North West,9,2,2,10,2,25
+E08000024,Sunderland,E48000026,Northumbria,North East,7,5,4,9,2,27
+E07000066,Basildon,E48000011,Essex,East of England,7,3,4,7,2,23
+E07000009,East Cambridgeshire,E48000003,Cambridgeshire,East of England,1,6,6,2,2,17
+E07000091,New Forest,E48000014,Hampshire & Isle of Wight,South East,4,10,10,3,2,29
+E08000037,Gateshead,E48000026,Northumbria,North East,8,5,6,9,2,30
+E06000015,Derby,E48000007,Derbyshire,East Midlands,9,3,5,7,2,26
+E07000169,Selby,E48000024,North Yorkshire,Yorkshire and The Humber,1,7,4,2,2,16
+E07000127,West Lancashire,E48000018,Lancashire,North West,4,8,7,5,2,26
+E06000006,Halton,E48000004,Cheshire,North West,7,4,2,9,2,24
+E07000238,Wychavon,E48000035,West Mercia,West Midlands,3,9,8,5,2,27
+E08000013,St. Helens,E48000022,Merseyside,North West,6,7,6,9,2,30
+E08000036,Wakefield,E48000037,West Yorkshire,Yorkshire and The Humber,5,5,4,8,2,24
+E07000175,Newark and Sherwood,E48000027,Nottinghamshire,East Midlands,2,8,7,6,2,25
+E07000093,Test Valley,E48000014,Hampshire & Isle of Wight,South East,5,7,8,2,2,24
+E07000195,Newcastle-under-Lyme,E48000029,Staffordshire,West Midlands,6,6,6,6,2,26
+E07000121,Lancaster,E48000018,Lancashire,North West,8,6,7,7,2,30
+E07000012,South Cambridgeshire,E48000003,Cambridgeshire,East of England,1,5,5,1,2,14
+E08000021,Newcastle upon Tyne,E48000026,Northumbria,North East,9,2,3,8,2,24
+E06000021,Stoke-on-Trent,E48000029,Staffordshire,West Midlands,7,3,3,10,2,25
+E08000011,Knowsley,E48000022,Merseyside,North West,8,3,4,10,2,27
+E07000198,Staffordshire Moorlands,E48000029,Staffordshire,West Midlands,2,10,8,4,2,26
+E08000014,Sefton,E48000022,Merseyside,North West,7,8,10,7,2,34
+E07000008,Cambridge,E48000003,Cambridgeshire,East of England,9,1,2,4,2,18
+E07000246,Somerset West and Taunton,E48000001,Avon & Somerset,South West,4,9,10,6,2,31
+E07000235,Malvern Hills,E48000035,West Mercia,West Midlands,2,10,10,5,2,29
+E07000040,East Devon,E48000008,"Devon, Cornwall & Isle of Scilly",South West,3,10,10,3,2,28
+W06000024,Merthyr Tydfil,W41000004,South Wales,Wales,2,4,3,9,2,20
+E07000042,Mid Devon,E48000008,"Devon, Cornwall & Isle of Scilly",South West,2,8,8,6,2,26
+E07000237,Worcester,E48000035,West Mercia,West Midlands,8,3,3,5,2,21
+E07000041,Exeter,E48000008,"Devon, Cornwall & Isle of Scilly",South West,9,2,4,4,2,21
+E06000057,Northumberland,E48000026,Northumbria,North East,3,9,8,6,2,28
+E08000023,South Tyneside,E48000026,Northumbria,North East,8,5,6,10,2,31
+W06000016,Rhondda Cynon Taf,W41000004,South Wales,Wales,2,5,4,8,1,20
+E07000126,South Ribble,E48000018,Lancashire,North West,5,7,5,4,1,22
+W06000023,Powys,W41000001,Dyfed-Powys,Wales,1,10,10,4,1,26
+E06000012,North East Lincolnshire,E48000016,Humber,Yorkshire and The Humber,8,5,6,8,1,28
+W06000014,Vale of Glamorgan,W41000004,South Wales,Wales,6,7,6,3,1,23
+E07000137,East Lindsey,E48000020,Lincolnshire,East Midlands,1,10,10,10,1,32
+W06000015,Cardiff,W41000004,South Wales,Wales,9,2,2,6,1,20
+E07000123,Preston,E48000018,Lancashire,North West,8,2,2,9,1,22
+E08000022,North Tyneside,E48000026,Northumbria,North East,8,5,6,6,1,26
+E07000031,South Lakeland,E48000006,Cumbria,North West,1,10,10,3,1,25
+E07000223,Adur,E48000032,Sussex,South East,6,8,9,5,1,29
+E07000224,Arun,E48000032,Sussex,South East,6,10,10,6,1,33
+E07000164,Hambleton,E48000024,North Yorkshire,Yorkshire and The Humber,1,10,9,2,1,23
+W06000018,Caerphilly,W41000002,Gwent,Wales,3,5,3,7,1,19
+E06000047,County Durham,E48000010,Durham & Darlington,North East,3,7,5,9,1,25
+E07000229,Worthing,E48000032,Sussex,South East,9,7,9,5,1,31
+W06000019,Blaenau Gwent,W41000002,Gwent,Wales,2,6,4,10,1,23
+E07000142,West Lindsey,E48000020,Lincolnshire,East Midlands,1,9,7,6,1,24
+W06000013,Bridgend,W41000004,South Wales,Wales,4,6,4,6,1,21
+E07000139,North Kesteven,E48000020,Lincolnshire,East Midlands,1,9,8,2,1,21
+E07000138,Lincoln,E48000020,Lincolnshire,East Midlands,8,2,3,9,1,23
+W06000012,Neath Port Talbot,W41000004,South Wales,Wales,3,7,5,8,1,24
+W06000011,Swansea,W41000004,South Wales,Wales,6,6,7,5,1,25
+W06000010,Carmarthenshire,W41000001,Dyfed-Powys,Wales,2,8,8,7,1,26
+W06000021,Monmouthshire,W41000002,Gwent,Wales,2,9,9,3,1,24
+W06000009,Pembrokeshire,W41000001,Dyfed-Powys,Wales,1,9,9,5,1,25
+W06000008,Ceredigion,W41000001,Dyfed-Powys,Wales,1,9,9,5,1,25
+W06000020,Torfaen,W41000002,Gwent,Wales,4,6,5,6,1,22
+W06000022,Newport,W41000002,Gwent,Wales,7,4,4,7,1,23
+E07000166,Richmondshire,E48000024,North Yorkshire,Yorkshire and The Humber,1,8,8,2,1,20
+E06000005,Darlington,E48000010,Durham & Darlington,North East,8,5,6,8,1,28
+W06000003,Conwy,W41000003,North Wales,Wales,3,10,10,5,1,29
+W06000002,Gwynedd,W41000003,North Wales,Wales,1,8,8,5,1,23
+W06000001,Isle of Anglesey,W41000003,North Wales,Wales,1,10,9,5,1,26

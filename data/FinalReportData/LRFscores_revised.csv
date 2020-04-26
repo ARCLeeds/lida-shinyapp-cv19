@@ -1,0 +1,43 @@
+lrfcd,lrfnm,RGN17NM,PopulationDensity_km2_score,Pct70_79_score,Pct80plus_score,EW_IMD_Decile_score,bph_score,RiskScore
+E48000002,Bedfordshire,East of England,9,1,2,4,10,26
+E48000030,Suffolk,East of England,3,9,10,5,10,37
+E48000017,Kent,South East,7,6,5,6,10,34
+E48000015,Hertfordshire,East of England,7,1,4,1,10,23
+E48000038,Wiltshire & Swindon,South West,5,5,6,2,9,27
+E48000033,Thames Valley,South East,6,2,2,1,9,20
+E48000019,Leicestershire,East Midlands,8,2,2,2,9,23
+E48000012,Gloucestershire,South West,4,8,8,1,9,30
+E48000021,London,London,10,1,1,8,8,28
+E48000036,West Midlands,West Midlands,10,1,2,10,8,31
+E48000008,"Devon, Cornwall & Isle of Scilly",South West,4,10,10,7,8,39
+E48000014,Hampshire & Isle of Wight,South East,9,6,7,3,8,33
+E48000034,Warwickshire,West Midlands,3,7,7,2,7,26
+E48000001,Avon & Somerset,South West,8,5,7,4,7,31
+E48000023,Norfolk,East of England,2,10,10,7,7,36
+E48000016,Humber,Yorkshire and The Humber,6,7,6,8,7,34
+E48000031,Surrey,South East,4,4,8,1,6,23
+E48000011,Essex,East of England,5,6,6,4,6,27
+E48000009,Dorset,South West,6,10,10,4,6,36
+E48000025,Northamptonshire,East Midlands,6,3,1,5,6,21
+E48000032,Sussex,South East,10,8,9,3,6,36
+E48000037,West Yorkshire,Yorkshire and The Humber,9,2,1,9,5,26
+E48000028,South Yorkshire,Yorkshire and The Humber,8,3,3,9,5,28
+E48000003,Cambridgeshire,East of England,2,3,3,2,5,15
+E48000035,West Mercia,West Midlands,3,8,8,5,5,29
+E48000013,Greater Manchester,North West,10,2,1,9,4,26
+E48000005,Cleveland,North East,7,4,4,10,4,29
+E48000006,Cumbria,North West,1,9,9,7,4,30
+E48000018,Lancashire,North West,7,6,5,8,4,30
+E48000029,Staffordshire,West Midlands,5,7,4,6,3,25
+E48000027,Nottinghamshire,East Midlands,8,3,3,8,3,25
+E48000004,Cheshire,North West,5,8,7,3,3,26
+E48000007,Derbyshire,East Midlands,4,7,6,6,3,26
+E48000024,North Yorkshire,Yorkshire and The Humber,2,9,9,1,2,23
+E48000022,Merseyside,North West,10,4,6,10,2,32
+E48000026,Northumbria,North East,9,5,5,9,2,30
+E48000020,Lincolnshire,East Midlands,1,10,8,6,2,27
+W41000004,South Wales,Wales,6,4,3,6,1,20
+E48000010,Durham & Darlington,North East,2,6,5,10,1,24
+W41000001,Dyfed-Powys,Wales,1,10,10,5,1,27
+W41000002,Gwent,Wales,3,5,4,7,1,20
+W41000003,North Wales,Wales,1,9,9,3,1,23
