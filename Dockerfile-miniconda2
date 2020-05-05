@@ -1,0 +1,63 @@
+FROM continuumio/miniconda
+
+MAINTAINER Martin Callaghan "m.callaghan@leeds.ac.uk"
+
+RUN conda config --add channels r
+RUN conda config --add channels conda-forge
+
+# Install dependency libraries
+RUN conda install -y r-base=3.6.3
+RUN conda install -y r-essentials
+
+RUN conda install -y r-flexdashboard=0.5.1.1
+RUN conda install -y r-sf
+RUN conda install -y --quiet -c conda-forge/label/cf202003 r-tmap
+# RUN conda install -y --quiet r-rJava
+
+RUN conda install -y -c conda-forge/label/main r-dt
+RUN conda install -y r-genalg
+
+
+RUN R -e "install.packages('GISTools', dependencies = TRUE, repo='http://cran.r-project.org')"
+	
+RUN conda update -y --quiet r-sf
+# Try from R channel
+RUN conda install -c r -y --quiet r-rgdal
+RUN conda install -y --quiet r-rgeos
+#RUN conda install -c r r-stringi
+
+RUN apt-get update -y
+
+#or jdk install fails
+RUN mkdir -p /usr/share/man/man1 
+
+RUN conda install -y openjdk=8.0.192=h14c3975_1003
+RUN conda install -y --quiet r-rJava
+#ENV LD_LIBRARY_PATH=/opt/conda/jre:/opt/conda/jre/lib/amd64/server:$LD_LIBRARY_PATH
+ENV JAVA_HOME=/opt/conda/bin/java
+
+RUN R CMD "javareconf"
+RUN R -e "options(java.parameters = '-Xss2560k'); install.packages('OpenStreetMap', repo='http://cran.r-project.org')"
+RUN conda update -c r -y r-rgdal
+#RUN conda install -c r r-stringi
+
+# make directory and copy Rmarkdown flexdashboard file in it
+RUN mkdir -p /bin
+COPY LRFReportDash_v6.Rmd    /bin/LRFReportDash_v6.Rmd
+COPY data/ bin/data/
+
+# make all app files readable (solves issue when dev in Windows, but building in Ubuntu)
+RUN chmod -R 755 /bin
+
+# expose port on Docker container
+EXPOSE 3838
+RUN echo $PROJ_LIB
+
+# run flexdashboard as localhost and on exposed port in Docker container
+CMD ["R", "-e", "rmarkdown::run('/bin/LRFReportDash_v6.Rmd', shiny_args = list(port = 3838, host = '0.0.0.0'))"]
+
+# show active containers docker ps
+# remove containers docker rm £contid£
+
+# See Docker images docker images -a
+# Remove images docker rmi $(docker images -a -q)

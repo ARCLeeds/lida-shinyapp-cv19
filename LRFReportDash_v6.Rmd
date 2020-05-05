@@ -11,26 +11,10 @@ runtime: shiny
 
 ```{r setup, include=FALSE}
 #### Do  Data pre processing stuff here ####
-# Install packages
 
-install.packages("flexdashboard")
-install.packages("OpenStreetMap")
-install.packages("sf")
-install.packages("ggplot2")
-
-# Need tmap2.3.0
-# install.packages("tmap")
-packageurl <- "https://cran.r-project.org/src/contrib/Archive/tmap/tmap_2.3.tar.gz"
-install.packages(packageurl, repos=NULL, type="source")
-
-install.packages("GISTools")
-install.packages("leaflet")
-install.packages("shiny")
-install.packages("datasets")
-install.packages("genalg")
-install.packages("scales")
-install.packages("tidyverse")
-install.packages("DT")
+r = getOption("repos")
+r["CRAN"] = "http://cran.r-project.org"
+options(repos = r)
 
 library(flexdashboard)
 library(OpenStreetMap)
@@ -91,7 +75,7 @@ msoa_boundaries_scores <-
            LRF_EW_IMD_Decile_score = EW_IMD_Decile_score, 
            LRF_bph_score = bph_score,
            LRF_RiskScore = RiskScore) %>% 
-    left_join(RegionLookup, by=c("ladcd"="ï..LAD17CD")) %>% 
+    left_join(RegionLookup, by=c("ladcd"="LAD17CD")) %>% 
           mutate(RGN17NM = ifelse(str_detect(msoa11cd,"^W"),"Wales",as.character(RGN17NM))) %>% 
     left_join(Regionscores[,c("RGN17NM","PopulationDensity_km2_score","Pct70_79_score","Pct80plus_score","EW_IMD_Decile_score","bph_score","RiskScore")], 
             by = c("RGN17NM"="RGN17NM")) %>% 

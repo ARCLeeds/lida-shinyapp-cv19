@@ -1,0 +1,65 @@
+
+
+FROM openanalytics/r-shiny
+
+MAINTAINER Tim M.Schendzielorz "tim.schendzielorz@googlemail.com"
+ 
+# Install dependency libraries
+RUN apt-get update && apt-get install -y  \
+            libxml2-dev \
+            libudunits2-dev \
+            libssh2-1-dev \
+            libcurl4-openssl-dev \
+            libsasl2-dev \
+            libv8-dev\
+            texlive-latex-extra\
+            libprotobuf-dev\
+            default-jdk\
+            libjq-dev\
+            libmagick++-dev\
+            lbzip2 \
+            libfftw3-dev \
+            libgeos-dev \
+            libgdal-dev \
+            libgsl0-dev \
+            libgl1-mesa-dev \
+            libglu1-mesa-dev \
+            libhdf4-alt-dev \
+            libhdf5-dev \
+            libjq-dev \
+            liblwgeom-dev \
+            libpq-dev \
+            libproj-dev \
+            libprotobuf-dev \
+            libnetcdf-dev \
+            libsqlite3-dev \
+            libssl-dev \
+            libudunits2-dev \
+            netcdf-bin \
+            postgis \
+            protobuf-compiler \
+            sqlite3 \
+            tk-dev \
+            unixodbc-dev\
+            && rm -rf /var/lib/apt/lists/*
+	
+
+
+# install needed R packages
+RUN R -e "install.packages(c('tidyverse', 'd3heatmap', 'flexdashboard', 'knitr', 'plotly', 'shiny', 'DT', 'scales', 'datasets', 'genalg', 'leaflet','GISTools','sf', 'ggplot2', 'OpenStreetMap', 'tmap'), dependencies = TRUE, repo='http://cran.r-project.org')"
+# RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/tmap/tmap_2.3.tar.gz', repos=NULL, type='source')"
+
+# make directory and copy Rmarkdown flexdashboard file in it
+RUN mkdir -p /bin
+COPY LRFReportDash_v6.Rmd    /bin/LRFReportDash_v6.Rmd
+COPY data/ bin/data/
+
+# make all app files readable (solves issue when dev in Windows, but building in Ubuntu)
+RUN chmod -R 755 /bin
+
+# expose port on Docker container
+EXPOSE 3838
+RUN cat /usr/lib/R/etc/Rprofile.site
+
+# run flexdashboard as localhost and on exposed port in Docker container
+CMD ["R", "-e", "rmarkdown::run('/bin/LRFReportDash_v6.Rmd', shiny_args = list(port = 3838, host = '0.0.0.0'))"]
