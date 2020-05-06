@@ -21,8 +21,12 @@ RUN conda install -y --quiet -c conda-forge/label/cf202003 r-tmap
 
 # make directory and copy Rmarkdown flexdashboard file in it
 RUN mkdir -p /bin
-COPY LRFReportDash_v6.Rmd    /bin/LRFReportDash_v6.Rmd
-COPY data/ bin/data/
+#COPY LRFReportDash_v6.Rmd    /bin/LRFReportDash_v6.Rmd
+#COPY data/ bin/data/
+ADD https://raw.githubusercontent.com/ARCLeeds/lida-shinyapp-cv19/master/LRFReportDash_v6.Rmd /bin/LRFReportDash_v6.Rmd
+ADD https://raw.githubusercontent.com/ARCLeeds/lida-shinyapp-cv19/master/data.tar.gz /bin
+RUN tar -zxvf /bin/data.tar.gz 
+RUN rm /bin/data.tar.gz
 
 # make all app files readable (solves issue when dev in Windows, but building in Ubuntu)
 RUN chmod -R 755 /bin
